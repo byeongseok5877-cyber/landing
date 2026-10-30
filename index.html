@@ -450,6 +450,14 @@
     document.getElementById('ok').style.display='block';
   });
 
+  // FAQ 질문 펼침 추적 (Amplitude)
+  document.querySelectorAll('#faq details').forEach(function(d,i){
+    d.addEventListener('toggle',function(){
+      if(!d.open||!window.amplitude)return;
+      window.amplitude.track('FAQ Opened',{question:d.querySelector('summary').textContent.trim(),position:i+1});
+    });
+  });
+
   // 시작 영역이 보이면 하단 고정 CTA 숨김
   var st=document.getElementById('sticky'), sec=document.getElementById('start');
   if('IntersectionObserver' in window){
